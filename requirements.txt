@@ -1,5 +1,6 @@
 Flask
-Flask-SQLAlchemy
-Flask-Login
-Werkzeug
-gunicorn
+Flask-PyMongo
+Pymongo
+python-dotenv  # (Opsional, tapi bagus untuk development lokal)
+gunicorn       # PENTING untuk menjalankan Flask di Render
+... (dependensi lain seperti Flask-Bcrypt, dsb.)
