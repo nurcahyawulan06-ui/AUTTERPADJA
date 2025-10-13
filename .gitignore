@@ -1,0 +1,22 @@
+# .gitignore
+
+# Database dan Environment
+database.db
+*.sqlite
+.env
+
+# Dependencies Python
+/venv/
+__pycache__/
+*.pyc
+
+# Khusus Flask
+instance/
+
+# Logika OS
+.DS_Store
+Thumbs.db
+
+# Output Deployment (opsional, jika digunakan)
+/dist/
+/build/
