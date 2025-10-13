@@ -1,22 +1,22 @@
-# .gitignore
-
-# Database dan Environment
-database.db
-*.sqlite
-.env
-
-# Dependencies Python
-/venv/
-__pycache__/
+File/Folder yang Dihasilkan Python & Lingkungan Virtual
+--------------------------------------------------------
+pycache/
 *.pyc
+*.pyo
+*.pyd
+.Python
+env
+venv
+.venv
+pip-log.txt
+pip-delete-this-file.txt
+.tox/
+.mypy_cache/
 
-# Khusus Flask
-instance/
-
-# Logika OS
+IDEs & OS
+--------------------------------------------------------
+.vscode/
+.idea/
 .DS_Store
 Thumbs.db
 
-# Output Deployment (opsional, jika digunakan)
-/dist/
-/build/
