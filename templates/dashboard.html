@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1 class="mb-4">Dashboard Analisis Usaha Tani</h1>
+<p class="lead">Selamat datang, **{{ current_user.name }}**. Anda masuk sebagai **{{ "Admin Khusus" if current_user.role == 'admin' else "Pengguna Biasa" }}**.</p>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-3">
+            <div class="card-body">
+                <h5 class="card-title text-success">Analisis Tebu 🌿</h5>
+                <p class="card-text">Hitung biaya perawatan dan kalkulasi hasil tebu per musim.</p>
+                <a href="{{ url_for('tebu_analisis') }}" class="btn btn-outline-success">Mulai Analisis</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-3">
+            <div class="card-body">
+                <h5 class="card-title text-warning">Analisis Jagung 🌽</h5>
+                <p class="card-text">Hitung biaya produksi dan perkiraan hasil panen jagung.</p>
+                <a href="{{ url_for('jagung_analisis') }}" class="btn btn-outline-warning">Mulai Analisis</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card text-center shadow-sm mb-3">
+            <div class="card-body">
+                <h5 class="card-title text-info">Analisis Padi 🍚</h5>
+                <p class="card-text">Hitung biaya perawatan dan kalkulasi hasil panen padi.</p>
+                <a href="{{ url_for('padi_analisis') }}" class="btn btn-outline-info">Mulai Analisis</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% if current_user.role == 'admin' %}
+<div class="alert alert-warning mt-4" role="alert">
+    Anda adalah **Admin**. Akses penuh ke semua data tersedia di <a href="{{ url_for('admin_data') }}" class="alert-link">Halaman Admin Data</a>.
+</div>
+{% endif %}
+{% endblock %}

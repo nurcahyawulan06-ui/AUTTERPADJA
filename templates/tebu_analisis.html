@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+{% block title %}Analisis Usaha Tebu{% endblock %}
+{% block content %}
+<h1 class="text-success mb-4">Analisis Usaha Tebu 🌿</h1>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-success text-white">Input Data Usaha Tebu</div>
+            <div class="card-body">
+                <form method="POST">
+                    
+                    <h5 class="mt-2">Data Lahan & Umum</h5>
+                    <div class="mb-3">
+                        <label for="lokasi_sawah" class="form-label">Lokasi Sawah</label>
+                        <input type="text" class="form-control" id="lokasi_sawah" name="lokasi_sawah" placeholder="Masukkan lokasi sawah" required>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="luas_kebun" class="form-label">Luas Kebun (Ha)</label>
+                            <input type="number" step="any" class="form-control" id="luas_kebun" name="luas_kebun" placeholder="Contoh: 1.5" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="luas_1_hektar" class="form-label">Luas 1 Hektar (M2)</label>
+                            <input type="number" step="any" class="form-control" id="luas_1_hektar" name="luas_1_hektar" value="10000" required>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="pkp" class="form-label">PKP (Parameter Kerapatan Tanaman)</label>
+                        <input type="number" class="form-control" id="pkp" name="pkp" placeholder="Isi: 110 atau 85" required>
+                        <div class="form-text">PKP menentukan Panjang Leng.</div>
+                    </div>
+                    
+                    <h5 class="mt-4">Data Hasil Panen & Harga</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="jml_btng_10m" class="form-label">Jml Btng /10 M</label>
+                            <input type="number" step="any" class="form-control" id="jml_btng_10m" name="jml_btng_10m" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="tinggi_btng" class="form-label">Tinggi Btng (M)</label>
+                            <input type="number" step="any" class="form-control" id="tinggi_btng" name="tinggi_btng" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="berat_btng_m" class="form-label">Berat Btng /M (Kg/M)</label>
+                            <input type="number" step="any" class="form-control" id="berat_btng_m" name="berat_btng_m" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="harga_tebu_kg" class="form-label">Harga Tebu per Kg (Rp)</label>
+                            <input type="number" step="any" class="form-control" id="harga_tebu_kg" name="harga_tebu_kg" required>
+                        </div>
+                    </div>
+
+                    <h5 class="mt-4">Biaya Perawatan</h5>
+                    <div class="mb-3">
+                        <label for="harga_perawatan_total" class="form-label">HARGA PERAWATAN TOTAL (Rp)</label>
+                        <input type="number" step="any" class="form-control" id="harga_perawatan_total" name="harga_perawatan_total" value="0" required>
+                        <div class="form-text">Ini mewakili total Biaya Kebun Anda per musim.</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-success w-100 mt-3">Kalkulasi Hasil & RAB (Save)</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        {% if hasil %}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">Hasil Kalkulasi Tebu - {{ hasil.lokasi_sawah }}</div>
+            <div class="card-body">
+                <table class="table table-sm table-striped">
+                    <tbody>
+                        <tr><th>Luas Efektif (M2)</th><td class="text-end">{{ "{:,.2f}".format(hasil.luas_efektif) }}</td></tr>
+                        <tr><th>Panjang Leng (M)</th><td class="text-end">{{ "{:,.2f}".format(hasil.panjang_leng) }}</td></tr>
+                        <tr><th>Jml Leng</th><td class="text-end">{{ "{:,.2f}".format(hasil.jml_leng) }}</td></tr>
+                        <tr><td colspan="2"><hr class="my-1"></td></tr>
+                        <tr><th>Protas Tebu /Ha (Kg)</th><td class="text-end">{{ "{:,.2f}".format(hasil.protas_tebu_hektar) }} Kg</td></tr>
+                        <tr><th>**Protas Tebu Kebun (Kg)**</th><td class="text-end text-success fw-bold">**{{ "{:,.2f}".format(hasil.protas_tebu_kebun) }} Kg**</td></tr>
+                        <tr><td colspan="2"><hr class="my-1"></td></tr>
+                        <tr><th>Nilai Tebu Bruto (Rp)</th><td class="text-end">Rp {{ "{:,.0f}".format(hasil.nilai_tebu) }}</td></tr>
+                        <tr><th>Biaya Perawatan (Rp)</th><td class="text-end text-danger">Rp {{ "{:,.0f}".format(request.form.get('harga_perawatan_total', 0) | float) }}</td></tr>
+                        <tr><th>**Nilai Protas Netto (Rp)**</th><td class="text-end text-primary fw-bold">**Rp {{ "{:,.0f}".format(hasil.nilai_netto) }}**</td></tr>
+                    </tbody>
+                </table>
+                <p class="text-muted small mt-3">Nilai Netto menunjukkan perkiraan laba/rugi usaha Anda.</p>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">Isi formulir di samping dan klik tombol kalkulasi untuk mengetahui hasil perkiraan RAB dan produksi tebu Anda.</div>
+        {% endif %}
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">Riwayat Analisis (10 Terbaru)</div>
+            <ul class="list-group list-group-flush">
+                {% for data in riwayat %}
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                    <div>
+                        **{{ data.lokasi_sawah }}** ({{ data.timestamp.strftime('%d/%m/%Y') }})
+                    </div>
+                    <span class="badge bg-{{ 'success' if data.nilai_netto > 0 else 'danger' }} p-2">
+                        Netto: **Rp {{ "{:,.0f}".format(data.nilai_netto) }}**
+                    </span>
+                </li>
+                {% else %}
+                <li class="list-group-item text-center text-muted">Belum ada data analisis tebu yang disimpan.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

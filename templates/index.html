@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+{% block title %}Selamat Datang di Tani Analyzer{% endblock %}
+{% block content %}
+<header class="p-5 mb-4 bg-light rounded-3 text-center hero-section">
+    <div class="container-fluid py-5">
+        <h1 class="display-3 fw-bold text-success">🌱 Tani Analyzer</h1>
+        <p class="fs-4 text-muted">Aplikasi Web Analisis Cepat dan Cermat Usaha Tani Anda (Jagung, Tebu, Padi).</p>
+        <p class="col-md-8 mx-auto lead">
+            Daftar sekarang untuk mulai menghitung biaya produksi, merencanakan RAB, dan memprediksi hasil panen Anda dalam satu musim tanam.
+        </p>
+        <div class="mt-4">
+            <a href="{{ url_for('register') }}" class="btn btn-success btn-lg me-3 shadow-lg">
+                Daftar Sekarang
+            </a>
+            <a href="{{ url_for('login') }}" class="btn btn-outline-secondary btn-lg">
+                Sudah Punya Akun? Login
+            </a>
+        </div>
+    </div>
+</header>
+
+
+<div class="row text-center mt-5">
+    <div class="col-md-4">
+        <div class="icon-box p-3">
+            <h2 class="text-success">Tebu 🌿</h2>
+            <p>Kalkulasi PKP, panjang leng, protas per hektar, hingga nilai jual tebu bersih Anda.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="icon-box p-3">
+            <h2 class="text-warning">Jagung 🌽</h2>
+            <p>Hitung biaya produksi secara detail, perkiraan hasil pipil kering, dan keuntungan netto.</p>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="icon-box p-3">
+            <h2 class="text-info">Padi 🍚</h2>
+            <p>Analisis hasil ubinan, luasan efektif, dan estimasi nilai jual gabah per musim tanam.</p>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-5 pt-5 border-top">
+    <div class="col-md-6">
+        <h3 class="text-primary">Fitur Utama Pengguna (User)</h3>
+        <ul>
+            <li>**Analisis Hasil Usaha:** Fokus pada perhitungan Netto (keuntungan bersih).</li>
+            <li>**Riwayat Data:** Menyimpan dan menampilkan 10 data analisis terbaru Anda.</li>
+            <li>**Akses Terbatas:** Hanya bisa melihat data analisis milik sendiri.</li>
+        </ul>
+    </div>
+    <div class="col-md-6">
+        <h3 class="text-danger">Akses Khusus Admin</h3>
+        <ul>
+            <li>**Akses Penuh:** Dapat melihat semua data analisis (Tebu, Jagung, Padi) dari seluruh pengguna.</li>
+            <li>**Laporan Agregat:** Melihat ringkasan total biaya dan total keuntungan dari semua usaha.</li>
+            <li>**Manajemen Data:** Memantau seluruh aktivitas data dalam aplikasi.</li>
+        </ul>
+    </div>
+</div>
+
+<style>
+    /* Styling tambahan untuk Hero Section */
+    .hero-section {
+        background-color: #f8fff7 !important; /* Warna hijau muda */
+        border: 1px solid #d4edc4;
+    }
+</style>
+
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% block title %}Analisis Usaha Jagung{% endblock %}
+{% block content %}
+<h1 class="text-warning mb-4">Analisis Usaha Jagung 🌽</h1>
+
+<div class="row">
+    <div class="col-lg-6">
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-warning text-dark">Input Data Usaha Jagung</div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="mb-3">
+                        <label for="lokasi_sawah" class="form-label">Lokasi Sawah</label>
+                        <input type="text" class="form-control" id="lokasi_sawah" name="lokasi_sawah" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="varietas" class="form-label">Varietas Jagung</label>
+                        <input type="text" class="form-control" id="varietas" name="varietas" required>
+                    </div>
+                    
+                    <h5 class="mt-4">Perkiraan Hasil Panen</h5>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="kg_jagung_glondong_ubinan" class="form-label">Kg jagung glondong Ubinan (2,5 m X 2,5 m)</label>
+                            <input type="number" step="any" class="form-control" id="kg_jagung_glondong_ubinan" name="kg_jagung_glondong_ubinan" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="rapaksi" class="form-label">Rapaksi bobot janggel dan kadar air (%)</label>
+                            <input type="number" step="any" class="form-control" id="rapaksi" name="rapaksi" value="60" required>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="luas_baku" class="form-label">Luas baku (M2)</label>
+                            <input type="number" step="any" class="form-control" id="luas_baku" name="luas_baku" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="harga_jagung_kg" class="form-label">Harga jagung ose kering per-kg (Rp)</label>
+                            <input type="number" step="any" class="form-control" id="harga_jagung_kg" name="harga_jagung_kg" required>
+                        </div>
+                    </div>
+                    
+                    <h5 class="mt-4">Biaya Produksi Total (Diisi Manual/Total RAB)</h5>
+                    <div class="mb-3">
+                        <label for="biaya_kebun" class="form-label">Biaya Kebun Total / Total Biaya Produksi (Rp)</label>
+                        <input type="number" step="any" class="form-control" id="biaya_kebun" name="biaya_kebun" required value="0">
+                        <div class="form-text">Contoh Biaya: Sewa Lahan, Traktor, Penanaman, Pupuk, Pemanenan, dll.</div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-warning w-100">Kalkulasi Hasil & RAB (Save)</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-lg-6">
+        {% if hasil %}
+        <div class="card shadow-sm mb-4">
+            <div class="card-header bg-primary text-white">Hasil Kalkulasi Jagung - {{ hasil.lokasi_sawah }} ({{ hasil.varietas }})</div>
+            <div class="card-body">
+                <table class="table table-sm table-bordered">
+                    <tbody>
+                        <tr><th>Kg Jagung Glondong / M2</th><td>{{ "{:,.4f}".format(hasil.kg_jagung_glondong_m2) }} Kg</td></tr>
+                        <tr><th>Kg Jagung Pipil / M2</th><td>{{ "{:,.4f}".format(hasil.kg_jagung_pipil_m2) }} Kg</td></tr>
+                        <tr><th>Luas Efektif (M2)</th><td>{{ "{:,.2f}".format(hasil.luas_efektif) }}</td></tr>
+                        <tr><td colspan="2"><hr class="my-1"></td></tr>
+                        <tr><th>**Protas Jagung Ose Kering (Kg)**</th><td>**{{ "{:,.2f}".format(hasil.protas_jagung_kering_kg) }} Kg**</td></tr>
+                        <tr><th>Nilai Protas Jagung Bruto (Rp)</th><td>Rp {{ "{:,.2f}".format(hasil.nilai_protas_bruto) }}</td></tr>
+                        <tr><th>Biaya Kebun (Rp)</th><td>Rp {{ "{:,.2f}".format(request.form.get('biaya_kebun', 0) | float) }}</td></tr>
+                        <tr><th>**Nilai Protas Jagung Netto (Rp)**</th><td>**Rp {{ "{:,.2f}".format(hasil.nilai_protas_netto) }}**</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        {% else %}
+        <div class="alert alert-info">Isi formulir dan klik tombol kalkulasi untuk melihat hasil.</div>
+        {% endif %}
+        
+        <div class="card shadow-sm">
+            <div class="card-header bg-secondary text-white">Riwayat Analisis (10 Terbaru)</div>
+            <ul class="list-group list-group-flush">
+                {% for data in riwayat %}
+                <li class="list-group-item">
+                    **{{ data.lokasi_sawah }}** ({{ data.timestamp.strftime('%d/%m/%Y') }}) - Netto: **Rp {{ "{:,.2f}".format(data.nilai_protas_netto) }}**
+                </li>
+                {% else %}
+                <li class="list-group-item text-center text-muted">Belum ada data analisis yang disimpan.</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+</div>
+{% endblock %}

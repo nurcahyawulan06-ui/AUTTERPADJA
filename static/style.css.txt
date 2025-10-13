@@ -1,0 +1,103 @@
+/* static/style.css */
+
+/* --- General Styling --- */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f7f9f7; /* Warna latar belakang sangat muda */
+    color: #333;
+}
+
+/* Mengatur warna utama aplikasi menjadi hijau yang relevan dengan pertanian */
+.bg-success {
+    background-color: #38761d !important; /* Hijau Tua Khas Pertanian */
+}
+.btn-success {
+    background-color: #5aa636; /* Hijau Sedang */
+    border-color: #5aa636;
+}
+.btn-success:hover {
+    background-color: #38761d;
+    border-color: #38761d;
+}
+
+/* --- Navigation Bar --- */
+
+.navbar-brand {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+/* --- Hero Section (index.html) --- */
+
+.hero-section {
+    background-color: #e6ffe6 !important; /* Hijau muda cerah */
+    border: 1px solid #c8e6c9;
+    padding: 60px 0;
+    margin-bottom: 30px;
+    border-radius: 15px !important;
+}
+
+/* --- Card & Form Styling --- */
+
+.card {
+    border: none;
+    border-radius: 10px;
+}
+
+.card-header {
+    font-weight: 600;
+    border-radius: 10px 10px 0 0 !important;
+}
+
+/* Membuat field input terlihat lebih rapi */
+.form-control:focus {
+    border-color: #5aa636;
+    box-shadow: 0 0 0 0.25rem rgba(90, 166, 54, 0.25);
+}
+
+/* --- Table Styling (Data Display & Admin) --- */
+
+.table-sm th, .table-sm td {
+    padding: 0.5rem;
+    font-size: 0.85rem;
+}
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+    background-color: #f3fff3; /* Garis zebra hijau sangat muda */
+}
+
+/* Warna khusus untuk tabel Admin */
+.table-success th {
+    background-color: #38761d;
+    color: white;
+}
+.table-warning th {
+    background-color: #ffc107;
+    color: #333;
+}
+.table-info th {
+    background-color: #0dcaf0;
+    color: #333;
+}
+
+/* --- Utility / Custom Text Colors --- */
+.text-success {
+    color: #38761d !important;
+}
+.text-danger {
+    color: #cc0000 !important;
+}
+.text-primary {
+    color: #007bff !important;
+}
+
+/* Menyesuaikan warna card agregat Admin */
+.bg-warning {
+    background-color: #ffc107 !important;
+    color: #333 !important;
+}
+.bg-info {
+    background-color: #0dcaf0 !important;
+    color: #333 !important;
+}
